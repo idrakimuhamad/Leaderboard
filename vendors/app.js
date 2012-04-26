@@ -64,6 +64,8 @@ App.insertPlayer = Em.TextField.extend({
         }
     }
 });
+
+// Doesn't really know what didInsertElement does KIV
 App.editName = Em.TextField.extend({
     didInsertElement: function() {
     	this.$().focus();
