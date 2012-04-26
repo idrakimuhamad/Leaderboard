@@ -34,19 +34,24 @@ App.playerController = Em.ArrayController.create({
     }.property('@each.isSelected'),
     removePlayer : function(id) {
     	this.filterProperty('id', id).forEach(this.removeObject, this);
-    	//alert(title);
     },
     playerNumbers : function() {
     	return this.get('length') === 0;
-    	//return players > 1 ? 'Select a Player to Add Point!' : 'Add Players to Start!';
     }.property('length'),
     sortPlayers : function() {
-    	var sortedPlayers = this.get('content').sort(function(a,b) {
-    		return b.get('point') - a.get('point');
+    	return this.get('content').toArray().sort(function(a,b) {
+    		if ( a.get('point') != b.get('point') )
+    		{
+    			return b.get('point') - a.get('point');
+    		} else {
+    			var aName = a.get('name').toLowerCase();
+    			var bName = b.get('name').toLowerCase();
+    			if ( aName < bName) return -1
+    			if ( aName > bName) return 1
+    			return 0
+    		}
     	});
-    	this.set('content', []);
-    	this.set('content', sortedPlayers);
-    }
+    }.property('content.@each.point').cacheable(),
 });
 
 /* Views */
@@ -71,11 +76,9 @@ App.playerView = Em.View.extend({
 
 	click : function () {
 		this.selectedPlayer();
-		//this.selectedView.selected_player();
 	},
-	doubleClick : function (event) {
+	doubleClick : function () {
 		this.editSelected();
-		event.preventDefault();
 	},
 	selectedPlayer : function () {
 		this.unsetPlayers();
@@ -88,7 +91,6 @@ App.playerView = Em.View.extend({
 	removeSelected : function () {
 		var id = this.getPath('content.id');
 		this.controller.removePlayer(id);
-		//console.log(id);
 	},
 	editSelected : function() {
 		var id = this.getPath('content.id');
@@ -107,17 +109,20 @@ App.playerView = Em.View.extend({
 	 }
 });
 
-App.addPoint = Em.View.extend({
-	tagName : 'a',
-	controller : App.playerController,
+App.scores = Em.View.extend({
+	templateName: "player-details",
 
-	click : function() {
+	addPoint : function() {
 		var point = App.playerController.findProperty('isSelected', true).get('point');
-		App.playerController.findProperty('isSelected', true).set('point', point+5);
-		this.sort_leaderboard();
+		if( point < 50 ) {
+			App.playerController.findProperty('isSelected', true).set('point', point+5);
+		}
 	},
-	sort_leaderboard : function () {
-		App.playerController.sortPlayers();
+	minusPoint : function() {
+		var point = App.playerController.findProperty('isSelected', true).get('point');
+		if ( point > 0 ) {
+			App.playerController.findProperty('isSelected', true).set('point', point-5);
+		}
 	}
 });
 

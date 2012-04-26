@@ -104,7 +104,7 @@ a { cursor: pointer;}
   font-size: 24px;
 }
 
-#leaderboard ul {
+.players ul {
   margin-top: 24px;
   list-style: none;
   font-size: 18px;
@@ -112,7 +112,7 @@ a { cursor: pointer;}
   padding: 0;
 }
 
-#leaderboard ul li {
+.players ul li {
   -webkit-transition: background 0.25s;
   -moz-transition: background 0.25s;
   -o-transition: background 0.25s;
@@ -120,9 +120,21 @@ a { cursor: pointer;}
   transition: background 0.25s;
   position: relative;
   padding: 6px;
+  cursor: pointer;
 }
 
-a.destroy {
+.players ul li div p {
+  display: inline-block;
+  font-size: 1.5em;
+}
+
+.players ul li div span {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #777;
+}
+
+span.destroy {
   background: url(../destroy.png) no-repeat left top;
   width: 20px;
   height: 20px;
@@ -130,28 +142,43 @@ a.destroy {
   text-indent: -999em;
   position: absolute;
   right: -30px;
-  top: 8px;
+  top: 15px;
   display: none;
   cursor: pointer;
 }
-
-.is-selected {
-  background: yellow;
+.players ul li:nth-child(9n+3).is-selected{
+  background: #feffbe;
+}
+.players ul li:nth-child(9n+6).is-selected {
+  background: #aafd91;
+}
+.players ul li:nth-child(9n+9).is-selected {
+  background: #fa5a70;
 }
 
-.is-selected a.destroy{
+.is-selected span.destroy{
   display: block;
 }
 
 .details {
-  margin-top: 18px;
+  margin-top: 30px;
   padding-top: 18px;
   border-top: 5px dashed #dedede;
-  font-size: 18px;
+  font-size: 1.75em;
+}
+.details div p {
+  margin-bottom: 12px;
 }
 
 .details span {
-  display: block;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.begin {
+  border-top: 5px dashed #DEDEDE;
+  margin-top: 18px;
+  padding-top: 24px;
 }
 
 

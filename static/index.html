@@ -22,18 +22,19 @@
 <body>
   <div id="leaderboard">
   <script type="text/x-handlebars">
-    {{view App.insertPlayer id="new-player" placeholder="Enter Player Name and press Enter"}}
     <div class="players">
       <ul>
-      {{#each App.playerController}}        
+      {{#each App.playerController.sortPlayers}}        
         {{#view App.playerView contentBinding="this" classBinding="content.isSelected"}}
           {{#if content.isEdit}}
           {{view App.editName valueBinding="content.name"}}
           {{/if}}
           {{#unless content.isEdit}}
-          <span>{{content.name}}</span>
-          <span class="fright">{{content.point}}</span>
-          <a href="#" class="destroy" {{action "removeSelected" on="click"}}>Remove</a>
+            <div title="Double Click To Edit">
+              <p>{{content.name}}</p>
+              <span class="fright">{{content.point}}</span>
+            </div>
+            <span class="destroy" {{action "removeSelected" on="click"}}>Remove</span>
           {{/unless}}
         {{/view}}
       {{/each}}
@@ -46,16 +47,25 @@
         {{#if App.playerController.selectedPlayer}}
         <p>Select a Player to Add Point!</p>
         {{else}}
-        <span>
-          {{App.playerController.getSelectedDetails.name}}
-          {{#view App.addPoint id="add-point" class="fright"}}
-          Add 5 Point
+        <div>
+          <p>{{App.playerController.getSelectedDetails.name}}</p>
+
+          {{#view App.scores}}
+          <span {{action "addPoint" on="click"}} title="Add 5 Points" class="fright">
+          + 5
+          </span>
+          <span {{action "minusPoint" on="click"}} title="Minus 5 Point">
+          - 5
+          </span>
           {{/view}}
-        </span>
+        </div>
         {{/if}}
       {{/if}}
     </div>
-  </script>
+    <div class="begin">
+      {{view App.insertPlayer id="new-player" placeholder="Enter Player Name and press Enter"}}
+    </div>
+    </script>
   </div>
 
   <!-- The missing protocol means that it will match the current protocol, either http or https. If running locally, we use the local jQuery. -->
