@@ -102,6 +102,7 @@ a { cursor: pointer;}
   height: 30px;
   line-height: 27px;
   font-size: 24px;
+  border: 0;
 }
 
 .players ul {
