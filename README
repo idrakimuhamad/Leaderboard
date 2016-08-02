@@ -1,8 +1,1 @@
 Leaderboard app base on Meteor.js Leaderboard using Ember.js.
-
-Done this for practice purposes and designed based on the [Meteor Leaderboard](http://meteor.com/examples/leaderboard) example.
-
-### TODO
-Added option to select how many points to add.
-Localstorage
-Try to backed it with a DB (not sure the kind of DB suits it, maybe going with MongoDB)
